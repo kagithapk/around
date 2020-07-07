@@ -42,22 +42,22 @@ module.exports.routes = {
 
   // To Approve activity request
 
-  'GET /api/postdetails': {
+  'GET /postdetails': {
     controller: 'DasboardController',
     action: 'postDetails',
   },
 
-  'POST /api/post-details': {
+  'POST /post-details': {
     controller: 'PostController',
     action: 'savePosts',
   },
 
-  'POST /api/like-action': {
+  'POST /like-action': {
     controller: 'PostController',
     action: 'likesAction',
   },
 
-  'POST /api/add-comment': {
+  'POST /add-comment': {
     controller: 'PostController',
     action: 'commentAction',
   },

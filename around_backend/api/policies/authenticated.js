@@ -1,5 +1,6 @@
 const {OAuth2Client} = require('google-auth-library');
-const CLIENT_ID = '1066077382500-b8gg6hskiq599ne4aqdmqvuneo016oas.apps.googleusercontent.com';
+const {manifest} = require('../../manifest');
+const CLIENT_ID = manifest.WebClientID;
 
 module.exports = async (req, res, next) => {
   if(req.headers.authorization){

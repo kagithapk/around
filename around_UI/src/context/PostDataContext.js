@@ -35,7 +35,7 @@ const authReducer = (state, action) => {
 
 const fetchPostsData = (dispatch) => async() => {
   try {
-    const response = await aroundApi.get('api/postdetails');
+    const response = await aroundApi.get('postdetails');
     console.log(response.data);
     dispatch({ type: 'fetchPostsData', payload: response.data });
   } catch (err) {
@@ -44,7 +44,7 @@ const fetchPostsData = (dispatch) => async() => {
 };
 
 const createPostsData = (dispatch) => async() => {
-  const response = await aroundApi.get('api/postdetails');
+  const response = await aroundApi.get('postdetails');
   dispatch({ type: 'fetchPostsData', payload: response.data });
 };
 

@@ -13,10 +13,9 @@ import { Provider as PostDataProvider } from './src/context/PostDataContext';
 import {
   GoogleSignin,
 } from '@react-native-community/google-signin';
+import { manifest } from './manifest';
 
-
-const WebClientID =
-'1066077382500-b8gg6hskiq599ne4aqdmqvuneo016oas.apps.googleusercontent.com';
+const { WebClientID } = manifest;
 
 GoogleSignin.configure({
   webClientId: WebClientID, // client ID of type WEB for your server(needed to verify user ID and offline access)

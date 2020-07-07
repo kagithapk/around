@@ -1,5 +1,11 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
- 
+
+# manifest
+manifest.js
+
+# baseurl
+baseurl.js
+
 # dependencies
 dist
 /dist
