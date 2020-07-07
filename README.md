@@ -23,7 +23,7 @@ export const baseurl = {
 5. Add manifest.js in 'around_UI/' with the content
 
 export const manifest = {
-  WebClientId: <web client id>,
+  WebClientID: <web client id>,
 };
 
 6. Add manifest.js in '/around_backend' with the content
