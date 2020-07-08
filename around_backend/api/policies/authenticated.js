@@ -20,7 +20,6 @@ module.exports = async (req, res, next) => {
       };
       // checking whether the user logged for the first time, if not create info in user model
       const data = await sails.models['users'].find({userId});
-      console.log(data);
       if(!data.length) {
         const userData = {};
         userData['userId'] = userId;

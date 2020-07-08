@@ -47,16 +47,25 @@ module.exports.routes = {
     action: 'postDetails',
   },
 
-  'POST /post-details': {
+  // for post details
+  'GET /post-details': {
+    controller: 'PostController',
+    action: 'postDetails',
+  },
+
+  // for saving the posts
+  'POST /save-posts': {
     controller: 'PostController',
     action: 'savePosts',
   },
 
+  // for actions performed on like button for posts
   'POST /like-action': {
     controller: 'PostController',
     action: 'likesAction',
   },
 
+  // for comments on like button
   'POST /add-comment': {
     controller: 'PostController',
     action: 'commentAction',
