@@ -12,10 +12,22 @@ module.exports = {
 
     const data = await sails.models['posts'].find();
     for(let key in data) {
+      // getting userdetails
       var userData = await sails.helpers.userDetails(data[key].userId);
+      // getting likes and comments count
       const likes = data[key].postLikes ? data[key].postLikes.length : 0;
       const comments = data[key].postComments  ? data[key].postComments.length : 0;
-      console.log(likes);
+      // creating comments and likes dats structure
+      for(var like in likes) {
+        var likesData = await sails.helpers.userDetails(data[like].postLikes.userId);
+        data[like].postLikes['image'] = likesData.userImage;
+      }
+      console.log(data[key].postLikes);
+      for(var comment in comments) {
+        var commentsData = await sails.helpers.userDetails(data[comment].postLikes.userId);
+        data[comment].postLikes['image'] = commentsData.userImage;
+      }
+      console.log(data[key].postComments);
       postDetails.push({
         id: data[key].id,
         name: data[key].userName,
