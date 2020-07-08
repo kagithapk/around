@@ -18,7 +18,7 @@ module.exports = {
       const likes = data[key].postLikes ? data[key].postLikes.length : 0;
       const comments = data[key].postComments  ? data[key].postComments.length : 0;
       // creating comments and likes dats structure
-      for(var like in likes) {
+      for(var like in data[key]) {
         var likesData = await sails.helpers.userDetails(data[like].postLikes.userId);
         data[like].postLikes['image'] = likesData.userImage;
       }

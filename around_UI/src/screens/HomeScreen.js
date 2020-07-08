@@ -6,7 +6,7 @@ import { Icon } from 'react-native-elements';
 import { Context as PostDataContext} from '../context/PostDataContext';
 import PostComponent from '../components/PostComponent';
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
 
   const { state, fetchPostsData } = useContext(PostDataContext);
   return (
@@ -17,7 +17,7 @@ const HomeScreen = () => {
         keyExtractor = {item => item.id.toString()}
         renderItem = { ({item}) => {
           return (
-            <PostComponent item={item} />
+            <PostComponent item={item} navigation={navigation} />
           );
         }}
       />

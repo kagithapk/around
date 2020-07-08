@@ -4,7 +4,7 @@ import { Icon } from 'react-native-elements';
 import 'react-native-vector-icons';
 import { Context as PostDataContext} from '../context/PostDataContext';
 
-const PostComponent = ({ item }) => {
+const PostComponent = ({ item, navigation }) => {
   const { addLike } = useContext(PostDataContext);
   return (
     <View style = { styles.postCard }>
@@ -26,11 +26,11 @@ const PostComponent = ({ item }) => {
         </TouchableOpacity>
       </View>
       <View style = {styles.userActions}>
-        <TouchableOpacity style = {styles.likeAction} onPress = { ()=> addLike(item.id) }>
+        <TouchableOpacity style = {styles.likeAction} onPress={ ()=> addLike(item.id) }>
           <Icon style = {styles.likeIcon} name="like1" type="antdesign" size={22} color="black" />
           <Text style = { styles.likeButton }>Like</Text>
         </TouchableOpacity>
-        <TouchableOpacity style = {styles.likeComment}>
+        <TouchableOpacity style = {styles.likeComment} onPress={ () => navigation.navigate('PostScreen')}>
           <Icon style = {styles.commentIcon} name="comment" type="fontisto" size={17} color="black" />
           <Text style= { styles.commentButton }>Comment</Text>
         </TouchableOpacity>

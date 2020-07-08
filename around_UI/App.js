@@ -1,10 +1,12 @@
 import React from 'react';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import { createTabNavigator, createBottomTabNavigator } from 'react-navigation-tabs';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { setNavigator } from './src/navigationRef';
 import ResolveAuthScreen from './src/screens/ResolveAuthScreen';
 import LoginScreen from './src/screens/LoginScreen';
+import LikesScreen from './src/screens/LikesScreen';
+import PostScreen from './src/screens/PostScreen';
 import { Provider as AuthProvider } from './src/context/AuthContext';
 import HomeScreen from './src/screens/HomeScreen';
 import PostCreateScreen from './src/screens/PostCreateScreen';
@@ -28,9 +30,13 @@ const switchNavigator = createSwitchNavigator({
   ResolveAuth: ResolveAuthScreen,
   Login: LoginScreen,
   mainScreen: createBottomTabNavigator({
-    Home: HomeScreen,
-    postScreen: PostCreateScreen,
-    settings: SettingsScreen,
+    Home: createStackNavigator({
+      HomeScreen,
+      PostScreen,
+      LikesScreen,
+    }),
+    PostCreateScreen,
+    Settings: SettingsScreen,
   }),
 });
 
