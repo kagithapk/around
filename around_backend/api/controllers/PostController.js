@@ -111,7 +111,14 @@ module.exports = {
       likesArray.push(data);
 
       // merging previous likes with present likes
-      const updatedData = [...postLikes, data];
+      let updatedData;
+
+      if (postLikes) {
+        updatedData = [...postLikes, data];
+      } else {
+        updatedData = [data];
+      }
+
       console.log(updatedData);
 
       var updatedLike = await sails.models['posts'].updateOne({ id: postId }).set({ postLikes: updatedData });
