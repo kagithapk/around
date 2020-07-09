@@ -110,15 +110,16 @@ const PostScreen = ({ navigation }) => {
   );
 };
 
-PostScreen.navigationOptions = {
-  headerStyle: {
-    backgroundColor: '#59B8F1',
-  },
-  headerTitleStyle: {
-    color: 'white',
-  },
-  headerTintColor: {
- },
+PostScreen.navigationOptions = ({ navigation }) => {
+  return {
+      headerStyle: {
+      backgroundColor: '#59B8F1',
+    },
+    headerTitleStyle: {
+      color: 'white',
+    },
+    headerTitle: navigation.getParam('post').postHeading,
+  };
 };
 
 const styles = StyleSheet.create({

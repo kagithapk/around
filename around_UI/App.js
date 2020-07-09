@@ -2,6 +2,7 @@ import React from 'react';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { Icon } from 'react-native-elements';
 import { setNavigator } from './src/navigationRef';
 import ResolveAuthScreen from './src/screens/ResolveAuthScreen';
 import LoginScreen from './src/screens/LoginScreen';
@@ -26,15 +27,23 @@ GoogleSignin.configure({
   accountName: '', // [Android] specifies an account name on the device that should be used
 });
 
+const Home = createStackNavigator({
+  HomeScreen,
+  PostScreen,
+  LikesScreen,
+});
+
+Home.navigationOptions = () => {
+  return {
+    tabBarIcon: <Icon name="home" type="antdesign" size={26} color="black" />,
+  };
+};
+
 const switchNavigator = createSwitchNavigator({
   ResolveAuth: ResolveAuthScreen,
   Login: LoginScreen,
   mainScreen: createBottomTabNavigator({
-    Home: createStackNavigator({
-      HomeScreen,
-      PostScreen,
-      LikesScreen,
-    }),
+    Home,
     PostCreateScreen,
     Settings: SettingsScreen,
   }),

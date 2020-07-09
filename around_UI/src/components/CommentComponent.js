@@ -9,7 +9,7 @@ const CommentComponent = ({ comment }) => {
       </View>
       <View style={styles.commentDataContainer}>
         <Text style={styles.commentName}>{comment.userName}</Text>
-        <Text>{comment.time}</Text>
+        <Text style={styles.commentTime}>{comment.time}</Text>
         <Text style={styles.commentText}>{comment.comment}</Text>
       </View>
     </View>
@@ -39,8 +39,12 @@ const styles = StyleSheet.create({
   commentName: {
     fontWeight: 'bold',
   },
+  commentTime: {
+    fontSize: 12,
+  },
   commentText: {
     marginTop: 5,
+    fontSize: 18,
   },
 });
 

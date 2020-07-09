@@ -3,7 +3,6 @@ import { StyleSheet, FlatList } from 'react-native';
 import 'react-native-vector-icons';
 import { NavigationEvents } from 'react-navigation';
 import { View } from 'react-native';
-import { Icon } from 'react-native-elements';
 import { Context as PostDataContext} from '../context/PostDataContext';
 import PostComponent from '../components/PostComponent';
 
@@ -30,7 +29,6 @@ const HomeScreen = ({navigation}) => {
 
 HomeScreen.navigationOptions = {
   title: 'Home',
-  tabBarIcon: <Icon name="home" type="antdesign" size={26} color="black" />,
   headerStyle: {
     backgroundColor: '#59B8F1',
   },
