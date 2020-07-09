@@ -6,36 +6,45 @@ import { Context as PostDataContext} from '../context/PostDataContext';
 
 const PostComponent = ({ item, navigation }) => {
   const { addLike } = useContext(PostDataContext);
+
+  const navigateToPostScreen = () => {
+    navigation.navigate('PostScreen', {
+      post: item,
+    });
+  };
+
   return (
-    <View style = { styles.postCard }>
-      <View style = { styles.userInfo}>
-        <Image
-          style = {styles.userImage}
-          source = {{uri: item.userImage}}
-        />
-        <Text style = {styles.name}>{item.name}</Text>
+    <TouchableOpacity onPress={() => navigateToPostScreen()}>
+      <View style = { styles.postCard }>
+        <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
+          <View style = { styles.userInfo}>
+            <Image
+              style = {styles.userImage}
+              source = {{uri: item.userImage}}
+            />
+            <Text style = {styles.name}>{item.name}</Text>
+          </View>
+        </TouchableOpacity>
+        <Text style = {styles.heading}>{item.postHeading}</Text>
+        <Text style = {styles. userInfo}>{item.postInfo}</Text>
+        <View style={styles.actionInfo}>
+          <TouchableOpacity style = {styles.checkLikes} onPress={() => navigateToPostScreen()}>
+            <Text style = {styles.likeCount}>{item.likesCount} Likes</Text>
+            <Text style = {styles.likeCount}> . {item.commentCount} Comments </Text>
+          </TouchableOpacity>
+        </View>
+        <View style = {styles.userActions}>
+          <TouchableOpacity style = {styles.likeAction} onPress={ ()=> addLike(item.id) }>
+            <Icon style = {styles.likeIcon} name="like1" type="antdesign" size={22} color="black" />
+            <Text style = { styles.likeButton }>Like</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style = {styles.likeComment} onPress={ () => navigateToPostScreen()}>
+            <Icon style = {styles.commentIcon} name="comment" type="fontisto" size={17} color="black" />
+            <Text style= { styles.commentButton }>Comment</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-      <Text style = {styles. heading}>{item.postHeading}</Text>
-      <Text style = {styles. userInfo}>{item.postInfo}</Text>
-      <View style={styles.actionInfo}>
-        <TouchableOpacity style = {styles.checkLikes}>
-          <Text style = {styles.likeCount}>{item.likesCount} Likes</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style = {styles.checkLikes}>
-          <Text style = {styles.likeCount}> . {item.commentCount} Comments </Text>
-        </TouchableOpacity>
-      </View>
-      <View style = {styles.userActions}>
-        <TouchableOpacity style = {styles.likeAction} onPress={ ()=> addLike(item.id) }>
-          <Icon style = {styles.likeIcon} name="like1" type="antdesign" size={22} color="black" />
-          <Text style = { styles.likeButton }>Like</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style = {styles.likeComment} onPress={ () => navigation.navigate('PostScreen')}>
-          <Icon style = {styles.commentIcon} name="comment" type="fontisto" size={17} color="black" />
-          <Text style= { styles.commentButton }>Comment</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
