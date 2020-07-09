@@ -30,7 +30,7 @@ const PostComponent = ({ item, navigation }) => {
           <Icon style = {styles.likeIcon} name="like1" type="antdesign" size={22} color="black" />
           <Text style = { styles.likeButton }>Like</Text>
         </TouchableOpacity>
-        <TouchableOpacity style = {styles.likeComment} onPress={ () => navigation.navigate('PostScreen')}>
+        <TouchableOpacity style = {styles.likeComment} onPress={ () => navigation.navigate('LikesScreen')}>
           <Icon style = {styles.commentIcon} name="comment" type="fontisto" size={17} color="black" />
           <Text style= { styles.commentButton }>Comment</Text>
         </TouchableOpacity>

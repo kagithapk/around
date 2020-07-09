@@ -9,27 +9,34 @@ module.exports = {
 
   postDetails: async(req, res) => {
     const postDetails = [];
-
     const data = await sails.models['posts'].find();
+
+    // iterating through all the posts of all users
     for(let key in data) {
       // getting userdetails
       var userData = await sails.helpers.userDetails(data[key].userId);
       // getting likes and comments count
       const likes = data[key].postLikes ? data[key].postLikes.length : 0;
       const comments = data[key].postComments  ? data[key].postComments.length : 0;
-      // creating comments and likes dats structure
-      for(var like in data[key]) {
-        var likesData = await sails.helpers.userDetails(data[like].postLikes.userId);
-        data[like].postLikes['image'] = likesData.userImage;
+
+      // creating likes data structure
+      for(var like in data[key].postLikes) {
+        var likesData = await sails.helpers.userDetails(data[key].postLikes[like].userId);
+        data[key].postLikes[like]['image'] = likesData.userImage;
+        data[key].postLikes[like]['Id'] = like;
       }
-      console.log(data[key].postLikes);
-      for(var comment in comments) {
-        var commentsData = await sails.helpers.userDetails(data[comment].postLikes.userId);
-        data[comment].postLikes['image'] = commentsData.userImage;
+
+      // creating comments data structure
+      for(var comment in data[key].postComments) {
+        var commentsData = await sails.helpers.userDetails(data[key].postComments[comment].userId);
+        data[key].postComments[comment]['image'] = commentsData.userImage;
+        data[key].postComments[comment]['timeFormat'] =  moment(data[key].postComments[comment].commentTime).format('ll');
+        data[key].postComments[comment]['Id'] = comment;
       }
-      console.log(data[key].postComments);
+
+      // creating response structure
       postDetails.push({
-        id: data[key].id,
+        postId: data[key].id,
         name: data[key].userName,
         postHeading: data[key].postHead,
         postInfo: data[key].postInfo,
@@ -96,7 +103,6 @@ module.exports = {
     var liked;
     for (var key in postLikes) {
       if(postLikes[key].userId === userId) {
-        console.log('Already Liked');
         liked = 1;
         break;
       }
@@ -118,8 +124,6 @@ module.exports = {
       } else {
         updatedData = [data];
       }
-
-      console.log(updatedData);
 
       var updatedLike = await sails.models['posts'].updateOne({ id: postId }).set({ postLikes: updatedData });
       return res.send(updatedLike);
@@ -146,6 +150,11 @@ module.exports = {
       return res.send('You need to provide comment and postId');
     }
 
+    // getting currrent timestamp and adding into the request body
+    var currentDate = new Date();
+    var currentTime = currentDate.getTime();
+    const commentTime = currentTime;
+
     // comments to post: postId
     const comments= [];
     // comment data
@@ -153,6 +162,7 @@ module.exports = {
       userName,
       userId,
       comment,
+      commentTime
     };
 
     comments.push(commentData);
