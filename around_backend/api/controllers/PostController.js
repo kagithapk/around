@@ -10,42 +10,49 @@ module.exports = {
   postDetails: async(req, res) => {
     const postDetails = [];
     const data = await sails.models['posts'].find();
+    const requestedUserId = req.user.userId;
 
     // iterating through all the posts of all users
     for(let key in data) {
+      let  postLike = false;
       // getting userdetails
       var userData = await sails.helpers.userDetails(data[key].userId);
+
       // getting likes and comments count
       const likes = data[key].postLikes ? data[key].postLikes.length : 0;
       const comments = data[key].postComments  ? data[key].postComments.length : 0;
 
-      // creating likes data structure
+      // creating likes data structure && checking whether the post is liked by the requested user
       for(var like in data[key].postLikes) {
         var likesData = await sails.helpers.userDetails(data[key].postLikes[like].userId);
-        data[key].postLikes[like]['image'] = likesData.userImage;
-        data[key].postLikes[like]['Id'] = like;
+        data[key].postLikes[like]['userImage'] = likesData.userImage;
+        data[key].postLikes[like]['id'] = like.toString();
+        if( data[key].postLikes[like].userId === requestedUserId) {
+          postLike = true;
+        }
       }
 
       // creating comments data structure
       for(var comment in data[key].postComments) {
         var commentsData = await sails.helpers.userDetails(data[key].postComments[comment].userId);
-        data[key].postComments[comment]['image'] = commentsData.userImage;
-        data[key].postComments[comment]['timeFormat'] =  moment(data[key].postComments[comment].commentTime).format('ll');
-        data[key].postComments[comment]['Id'] = comment;
+        data[key].postComments[comment]['userImage'] = commentsData.userImage;
+        data[key].postComments[comment]['time'] =  moment(data[key].postComments[comment].commentTime).format('ll');
+        data[key].postComments[comment]['id'] = comment.toString();
       }
 
       // creating response structure
       postDetails.push({
-        postId: data[key].id,
+        id: data[key].id,
         name: data[key].userName,
         postHeading: data[key].postHead,
         postInfo: data[key].postInfo,
-        likes: data[key].postLikes ? data[key].postLikes : 0,
-        comments: data[key].postComments ?  data[key].postComments: 0,
+        postLikes: data[key].postLikes ? data[key].postLikes : 0,
+        postComments: data[key].postComments ?  data[key].postComments: 0,
         userImage: userData.userImage,
         postTime: moment(data[key].postTime).format('lll'),
         likesCount: likes,
-        commentsCount: comments
+        commentCount: comments,
+        postLikedByYou: postLike
       });
     }
     return res.send(postDetails);

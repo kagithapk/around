@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { StyleSheet, FlatList } from 'react-native';
 import 'react-native-vector-icons';
 import { NavigationEvents } from 'react-navigation';
+import { View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { Context as PostDataContext} from '../context/PostDataContext';
 import PostComponent from '../components/PostComponent';
@@ -12,6 +13,7 @@ const HomeScreen = ({navigation}) => {
   return (
     <>
       <NavigationEvents onWillFocus = { fetchPostsData }/>
+      <View style = {styles.homeScreen}>
       <FlatList
         data = { state.postDetails }
         keyExtractor = {item => item.id.toString()}
@@ -21,16 +23,28 @@ const HomeScreen = ({navigation}) => {
           );
         }}
       />
+      </View>
     </>
   );
 };
 
 HomeScreen.navigationOptions = {
   title: 'Home',
-  tabBarIcon: <Icon name="home" type="antdesign" size={24} color="black" />,
+  tabBarIcon: <Icon name="home" type="antdesign" size={26} color="black" />,
+  headerStyle: {
+    backgroundColor: '#59B8F1',
+  },
+  headerTitleStyle: {
+    color: 'white',
+  },
 };
 
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  homeScreen: {
+    backgroundColor: 'white',
+    flex: 1,
+  },
+});
 
 export default HomeScreen;

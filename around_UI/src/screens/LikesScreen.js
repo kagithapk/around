@@ -1,10 +1,10 @@
 import React from 'react';
 import {View, Text, FlatList, Image, StyleSheet} from 'react-native';
 
-const LikesScreen = () => {
-
+const LikesScreen = ({navigation}) => {
+  const likesDetails = navigation.getParam('likesDetails');
   const renderJSX = () => {
-    return likesDetails.length ? <FlatList
+    return likesDetails && likesDetails.length ? <FlatList
       data = { likesDetails }
       keyExtractor = { item => item.userId}
       renderItem = { ({item}) => {
@@ -22,86 +22,9 @@ const LikesScreen = () => {
     /> : <Text style = {styles.noLikes}>May be you can be the first to like </Text>;
   };
 
-  let likesDetails = [
-    {
-      'userId': '1126336486503415290468',
-      'userName': 'pranith modem',
-      'userImage': 'https://lh3.googleusercontent.com/-H4vh04mVugU/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucmZK2w0f5StC4bWrp8pP2J_gEt-Sw/s96-c/photo.jpg',
-    },
-    {
-      'userId': '1012429115443296843047',
-      'userName': 'pranith modem',
-      'userImage': 'https://lh3.googleusercontent.com/-H4vh04mVugU/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucmZK2w0f5StC4bWrp8pP2J_gEt-Sw/s96-c/photo.jpg',
-    },
-    {
-      'userId': '1126336486503415290465',
-      'userName': 'pranith modem',
-      'userImage': 'https://lh3.googleusercontent.com/-H4vh04mVugU/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucmZK2w0f5StC4bWrp8pP2J_gEt-Sw/s96-c/photo.jpg',
-    },
-    {
-      'userId': '1012429115443296843043',
-      'userName': 'pranith modem',
-      'userImage': 'https://lh3.googleusercontent.com/-H4vh04mVugU/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucmZK2w0f5StC4bWrp8pP2J_gEt-Sw/s96-c/photo.jpg',
-    },
-    {
-      'userId': '1126336486503415290462',
-      'userName': 'pranith modem',
-      'userImage': 'https://lh3.googleusercontent.com/-H4vh04mVugU/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucmZK2w0f5StC4bWrp8pP2J_gEt-Sw/s96-c/photo.jpg',
-    },
-    {
-      'userId': '1012429115443296843041',
-      'userName': 'pranith modem',
-      'userImage': 'https://lh3.googleusercontent.com/-H4vh04mVugU/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucmZK2w0f5StC4bWrp8pP2J_gEt-Sw/s96-c/photo.jpg',
-    },
-    {
-      'userId': '1012429115443296843043',
-      'userName': 'pranith modem',
-      'userImage': 'https://lh3.googleusercontent.com/-H4vh04mVugU/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucmZK2w0f5StC4bWrp8pP2J_gEt-Sw/s96-c/photo.jpg',
-    },
-    {
-      'userId': '1126336486503415290462',
-      'userName': 'pranith modem',
-      'userImage': 'https://lh3.googleusercontent.com/-H4vh04mVugU/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucmZK2w0f5StC4bWrp8pP2J_gEt-Sw/s96-c/photo.jpg',
-    },
-    {
-      'userId': '1012429115443296843041',
-      'userName': 'pranith modem',
-      'userImage': 'https://lh3.googleusercontent.com/-H4vh04mVugU/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucmZK2w0f5StC4bWrp8pP2J_gEt-Sw/s96-c/photo.jpg',
-    },
-    {
-      'userId': '1012429115443296843043',
-      'userName': 'pranith modem',
-      'userImage': 'https://lh3.googleusercontent.com/-H4vh04mVugU/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucmZK2w0f5StC4bWrp8pP2J_gEt-Sw/s96-c/photo.jpg',
-    },
-    {
-      'userId': '1126336486503415290462',
-      'userName': 'pranith modem',
-      'userImage': 'https://lh3.googleusercontent.com/-H4vh04mVugU/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucmZK2w0f5StC4bWrp8pP2J_gEt-Sw/s96-c/photo.jpg',
-    },
-    {
-      'userId': '1012429115443296843041',
-      'userName': 'pranith modem',
-      'userImage': 'https://lh3.googleusercontent.com/-H4vh04mVugU/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucmZK2w0f5StC4bWrp8pP2J_gEt-Sw/s96-c/photo.jpg',
-    },
-    {
-      'userId': '1012429115443296843043',
-      'userName': 'pranith modem',
-      'userImage': 'https://lh3.googleusercontent.com/-H4vh04mVugU/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucmZK2w0f5StC4bWrp8pP2J_gEt-Sw/s96-c/photo.jpg',
-    },
-    {
-      'userId': '1126336486503415290462',
-      'userName': 'pranith modem',
-      'userImage': 'https://lh3.googleusercontent.com/-H4vh04mVugU/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucmZK2w0f5StC4bWrp8pP2J_gEt-Sw/s96-c/photo.jpg',
-    },
-    {
-      'userId': '1012429115443296843041',
-      'userName': 'pranith modem',
-      'userImage': 'https://lh3.googleusercontent.com/-H4vh04mVugU/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucmZK2w0f5StC4bWrp8pP2J_gEt-Sw/s96-c/photo.jpg',
-    },
-  ];
   return (
     <View style = {styles.likesScreen}>
-      <Text style = {styles.totalLikes}>{likesDetails.length ? likesDetails.length : 0} Likes</Text>
+      <Text style = {styles.totalLikes}>{likesDetails && likesDetails.length ? likesDetails.length : 0} Likes</Text>
       {renderJSX()}
     </View>
   );
