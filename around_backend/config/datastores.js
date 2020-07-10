@@ -47,5 +47,7 @@ module.exports.datastores = {
      ***************************************************************************/
     adapter: 'sails-mongo',
     url: 'mongodb://localhost:27017/around',
+    // url: 'mongodb+srv://around:aroundbackend@around.02yl9.mongodb.net/around?retryWrites=true&w=majority'
+    // url: 'mongodb://around:aroundbackend@around.02yl9.mongodb.net/around?retryWrites=true',
   },
 };
