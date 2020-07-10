@@ -28,7 +28,7 @@ const HomeScreen = ({navigation}) => {
 };
 
 HomeScreen.navigationOptions = {
-  title: 'Home',
+  title: 'around',
   headerStyle: {
     backgroundColor: '#59B8F1',
   },

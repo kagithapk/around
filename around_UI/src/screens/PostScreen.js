@@ -13,6 +13,9 @@ const PostScreen = ({ navigation }) => {
   const { state, addComment, addLike } = useContext(PostContext);
   const userData = useContext(AuthContext);
   const user = userData.state;
+  const userId = user.id;
+  const userName = user.name;
+  const userPhoto = user.photo;
   const { id } = post;
   const selectedPost = state.postDetails.filter((postIteration) => postIteration.id === id);
   const { name, userImage, postHeading, postInfo, likesCount, commentCount, postComments, postLikes, postLikedByYou, postTime } = selectedPost[0];
@@ -75,7 +78,7 @@ const PostScreen = ({ navigation }) => {
     <View style={styles.postContainer}>
       <FlatList
         data={postComments}
-        keyExtractor={(comment) => comment.id}
+        keyExtractor={(commentIndividual) => commentIndividual.id}
         renderItem={({ item }) => {
           return (
             <CommentComponent comment={item} />
@@ -87,7 +90,7 @@ const PostScreen = ({ navigation }) => {
       <View style={styles.commentBar}>
         <Image
           style={styles.commentUserImage}
-          source={{ uri: userImage }}
+          source={{ uri: userPhoto }}
         />
         <TextInput
           value={comment}
@@ -99,7 +102,7 @@ const PostScreen = ({ navigation }) => {
         />
         <TouchableOpacity onPress={() => {
           if (comment) {
-            addComment({ userId: user.id, userName: user.name, userImage: user.photo, postId: id, comment });
+            addComment({ userId: userId, userName: userName, userImage: userPhoto, postId: id, comment });
             setComment('');
           }
         }}>
@@ -110,6 +113,29 @@ const PostScreen = ({ navigation }) => {
   );
 };
 
+// FOR HEADER TO BE USER DETAILS
+
+// const HeaderBar = ({ navigation }) => {
+//   const post = navigation.getParam('post');
+//   const { state } = useContext(PostContext);
+//   const { id } = post;
+//   const selectedPost = state.postDetails.filter((postIteration) => postIteration.id === id);
+//   const { name, userImage, postTime } = selectedPost[0];
+
+//   return (
+//     <View style={styles.profileContainer}>
+//       <Image
+//         style={styles.userImage}
+//         source={{ uri: userImage }}
+//       />
+//       <View style={styles.profile}>
+//         <Text style={styles.userName}>{name}</Text>
+//         <Text style = {styles.postTime}>{postTime}</Text>
+//       </View>
+//     </View>
+//   );
+// };
+
 PostScreen.navigationOptions = ({ navigation }) => {
   return {
     headerStyle: {
@@ -118,7 +144,9 @@ PostScreen.navigationOptions = ({ navigation }) => {
     headerTitleStyle: {
       color: 'white',
     },
-    headerTitle: navigation.getParam('post').postHeading,
+    headerTitle: '',
+    // headerTitle: navigation.getParam('post').postHeading,
+    // headerTitle: <HeaderBar navigation={navigation} />,
   };
 };
 
