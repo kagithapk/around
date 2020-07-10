@@ -8,7 +8,7 @@ var moment = require('moment');
 module.exports = {
 
   postDetails: async(req, res) => {
-    const postDetails = [];
+    let postDetails = [];
     const data = await sails.models['posts'].find();
     const requestedUserId = req.user.userId;
 
@@ -52,9 +52,21 @@ module.exports = {
         postTime: moment(data[key].postTime).format('lll'),
         likesCount: likes,
         commentCount: comments,
-        postLikedByYou: postLike
+        postLikedByYou: postLike,
+        timeSort: data[key].postTime
       });
     }
+
+    // if there are no postDetails
+    if (postDetails.length === 0) {
+      res.status(204);
+      return res.send('No data available');
+    }
+
+    // Sorting the postDetails data based on postTime
+    postDetails = postDetails.sort(
+      (a, b) => moment(b.timeSort) - moment(a.timeSort)
+    );
     return res.send(postDetails);
   },
 
