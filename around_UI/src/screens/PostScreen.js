@@ -13,6 +13,9 @@ const PostScreen = ({ navigation }) => {
   const { state, addComment, addLike } = useContext(PostContext);
   const userData = useContext(AuthContext);
   const user = userData.state;
+  const userId = user.id;
+  const userName = user.name;
+  const userPhoto = user.photo;
   const { id } = post;
   const selectedPost = state.postDetails.filter((postIteration) => postIteration.id === id);
   const { name, userImage, postHeading, postInfo, likesCount, commentCount, postComments, postLikes, postLikedByYou, postTime } = selectedPost[0];
@@ -87,7 +90,7 @@ const PostScreen = ({ navigation }) => {
       <View style={styles.commentBar}>
         <Image
           style={styles.commentUserImage}
-          source={{ uri: userImage }}
+          source={{ uri: userPhoto }}
         />
         <TextInput
           value={comment}
@@ -99,7 +102,7 @@ const PostScreen = ({ navigation }) => {
         />
         <TouchableOpacity onPress={() => {
           if (comment) {
-            addComment({ userId: user.id, userName: user.name, userImage: user.photo, postId: id, comment });
+            addComment({ userId: userId, userName: userName, userImage: userPhoto, postId: id, comment });
             setComment('');
           }
         }}>
