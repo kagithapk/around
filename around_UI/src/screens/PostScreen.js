@@ -23,39 +23,39 @@ const PostScreen = ({ navigation }) => {
     return (
       <View>
         <View style={styles.profileContainer}>
-        <Image
-          style={styles.userImage}
-          source={{ uri: userImage }}
-        />
-        <View style={styles.profile}>
-          <Text style={styles.userName}>{name}</Text>
-          <Text style = {styles.postTime}>{postTime}</Text>
+          <Image
+            style={styles.userImage}
+            source={{ uri: userImage }}
+          />
+          <View style={styles.profile}>
+            <Text style={styles.userName}>{name}</Text>
+            <Text style = {styles.postTime}>{postTime}</Text>
+          </View>
         </View>
-      </View>
-      <View style={styles.postDetailsContainer}>
-        <Text style={styles.postHeading}>{postHeading}</Text>
-        <Text style={styles.postInfo}>{postInfo}</Text>
-        <View style={styles.actionButtons}>
-          <TouchableOpacity style={styles.likeContainer} onPress={() => navigation.navigate('LikesScreen', { likesDetails: postLikes })}>
-            {/* <Icon style = {styles.likeIcon} name="like1" type="antdesign" size={22} color="blue" /> */}
-            <Text>{likesCount} likes</Text>
-          </TouchableOpacity>
-          <Text>{commentCount} comments</Text>
+        <View style={styles.postDetailsContainer}>
+          <Text style={styles.postHeading}>{postHeading}</Text>
+          <Text style={styles.postInfo}>{postInfo}</Text>
+          <View style={styles.actionButtons}>
+            <TouchableOpacity style={styles.likeContainer} onPress={() => navigation.navigate('LikesScreen', { likesDetails: postLikes })}>
+              {/* <Icon style = {styles.likeIcon} name="like1" type="antdesign" size={22} color="blue" /> */}
+              <Text>{likesCount} likes</Text>
+            </TouchableOpacity>
+            <Text>{commentCount} comments</Text>
+          </View>
+          <View style = {styles.userActions}>
+            <TouchableOpacity style = {styles.likeAction} onPress={ ()=> addLike(id) }>
+              <Icon style = {styles.likeIcon} name="like1" type="antdesign" size={22} color= {postLikedByYou ? '#59B8F1' : 'black'} />
+              <Text style = { [styles.likeButton, {color: postLikedByYou ? '#59B8F1' : 'black'}] }>Like</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style = {styles.likeComment} >
+              <Icon style = {styles.commentIcon} name="comment" type="fontisto" size={17} color="black" />
+              <Text style= { styles.commentButton }>Comment</Text>
+            </TouchableOpacity>
+          </View>
+          <View>
+            <Text style={styles.commentHeader}>Comments</Text>
+          </View>
         </View>
-        <View style = {styles.userActions}>
-          <TouchableOpacity style = {styles.likeAction} onPress={ ()=> addLike(id) }>
-            <Icon style = {styles.likeIcon} name="like1" type="antdesign" size={22} color= {postLikedByYou ? '#59B8F1' : 'black'} />
-            <Text style = { [styles.likeButton, {color: postLikedByYou ? '#59B8F1' : 'black'}] }>Like</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style = {styles.likeComment} >
-            <Icon style = {styles.commentIcon} name="comment" type="fontisto" size={17} color="black" />
-            <Text style= { styles.commentButton }>Comment</Text>
-          </TouchableOpacity>
-        </View>
-        <View>
-          <Text style={styles.commentHeader}>Comments</Text>
-        </View>
-      </View>
       </View>
     );
   };
@@ -75,7 +75,7 @@ const PostScreen = ({ navigation }) => {
     <View style={styles.postContainer}>
       <FlatList
         data={postComments}
-        keyExtractor={(comment) => comment.id}
+        keyExtractor={(commentIndividual) => commentIndividual.id}
         renderItem={({ item }) => {
           return (
             <CommentComponent comment={item} />
@@ -110,6 +110,29 @@ const PostScreen = ({ navigation }) => {
   );
 };
 
+// FOR HEADER TO BE USER DETAILS
+
+// const HeaderBar = ({ navigation }) => {
+//   const post = navigation.getParam('post');
+//   const { state } = useContext(PostContext);
+//   const { id } = post;
+//   const selectedPost = state.postDetails.filter((postIteration) => postIteration.id === id);
+//   const { name, userImage, postTime } = selectedPost[0];
+
+//   return (
+//     <View style={styles.profileContainer}>
+//       <Image
+//         style={styles.userImage}
+//         source={{ uri: userImage }}
+//       />
+//       <View style={styles.profile}>
+//         <Text style={styles.userName}>{name}</Text>
+//         <Text style = {styles.postTime}>{postTime}</Text>
+//       </View>
+//     </View>
+//   );
+// };
+
 PostScreen.navigationOptions = ({ navigation }) => {
   return {
       headerStyle: {
@@ -118,7 +141,9 @@ PostScreen.navigationOptions = ({ navigation }) => {
     headerTitleStyle: {
       color: 'white',
     },
-    headerTitle: navigation.getParam('post').postHeading,
+    headerTitle: '',
+    // headerTitle: navigation.getParam('post').postHeading,
+    // headerTitle: <HeaderBar navigation={navigation} />,
   };
 };
 
