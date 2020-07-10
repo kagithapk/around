@@ -12,7 +12,10 @@ import { Provider as AuthProvider } from './src/context/AuthContext';
 import HomeScreen from './src/screens/HomeScreen';
 import PostCreateScreen from './src/screens/PostCreateScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
+import SearchScreen from './src/screens/SearchScreen';
+import ProfileScreen from './src/screens/ProfileScreen';
 import { Provider as PostDataProvider } from './src/context/PostDataContext';
+import { Provider as SearchProvider } from './src/context/SearchContext';
 import {
   GoogleSignin,
 } from '@react-native-community/google-signin';
@@ -31,6 +34,8 @@ const Home = createStackNavigator({
   HomeScreen,
   PostScreen,
   LikesScreen,
+  SearchScreen,
+  ProfileScreen,
 });
 
 Home.navigationOptions = () => {
@@ -53,14 +58,16 @@ const App = createAppContainer(switchNavigator);
 
 export default () => {
   return (
-    <PostDataProvider>
-      <AuthProvider>
-        <App
-          ref={navigator => {
-            setNavigator(navigator);
-          }}
-        />
-      </AuthProvider>
-    </PostDataProvider>
+    <SearchProvider>
+      <PostDataProvider>
+        <AuthProvider>
+          <App
+            ref={navigator => {
+              setNavigator(navigator);
+            }}
+          />
+        </AuthProvider>
+      </PostDataProvider>
+    </SearchProvider>
   );
 };
