@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, Image, TouchableOpacity, TouchableWithoutFeedback, StyleSheet } from 'react-native';
 import { Icon } from 'react-native-elements';
 import 'react-native-vector-icons';
-import { Context as PostDataContext} from '../context/PostDataContext';
+import { Context as PostDataContext } from '../context/PostDataContext';
 
 const PostComponent = ({ item, navigation }) => {
   const { addLike } = useContext(PostDataContext);
@@ -14,40 +14,40 @@ const PostComponent = ({ item, navigation }) => {
   };
 
   return (
-    <TouchableOpacity onPress={() => navigateToPostScreen(false)}>
-      <View style = { styles.postCard }>
+    <TouchableWithoutFeedback onPress={() => navigateToPostScreen(false)}>
+      <View style={styles.postCard}>
         <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
-          <View style = { styles.userInfo}>
+          <View style={styles.userInfo}>
             <Image
-              style = {styles.userImage}
-              source = {{uri: item.userImage}}
+              style={styles.userImage}
+              source={{ uri: item.userImage }}
             />
             <View>
-              <Text style = {styles.name}>{item.name}</Text>
-              <Text style = {styles.postTime}>{item.postTime}</Text>
+              <Text style={styles.name}>{item.name}</Text>
+              <Text style={styles.postTime}>{item.postTime}</Text>
             </View>
           </View>
         </TouchableOpacity>
-        <Text style = {styles.heading}>{item.postHeading}</Text>
-        <Text style = {styles. userInfo}>{item.postInfo}</Text>
+        <Text style={styles.heading}>{item.postHeading}</Text>
+        <Text style={styles.userInfo}>{item.postInfo}</Text>
         <View style={styles.actionInfo}>
-          <TouchableOpacity style = {styles.checkLikes} onPress={() => navigateToPostScreen(false)}>
-            <Text style = {styles.likeCount}>{item.likesCount} Likes</Text>
-            <Text style = {styles.likeCount}> . {item.commentCount} Comments </Text>
+          <TouchableOpacity style={styles.checkLikes} onPress={() => navigateToPostScreen(false)}>
+            <Text style={styles.likeCount}>{item.likesCount} Likes</Text>
+            <Text style={styles.likeCount}> . {item.commentCount} Comments </Text>
           </TouchableOpacity>
         </View>
-        <View style = {styles.userActions}>
-          <TouchableOpacity style = {styles.likeAction} onPress={ ()=> addLike(item.id) }>
-            <Icon style = {styles.likeIcon} name="like1" type="antdesign" size={22} color={item.postLikedByYou ? '#59B8F1' : 'black'} />
-            <Text style = { [styles.likeButton, {color: item.postLikedByYou ? '#59B8F1' : 'black'}] }>Like</Text>
+        <View style={styles.userActions}>
+          <TouchableOpacity style={styles.likeAction} onPress={() => addLike(item.id)}>
+            <Icon style={styles.likeIcon} name="like1" type="antdesign" size={22} color={item.postLikedByYou ? '#59B8F1' : 'black'} />
+            <Text style={[styles.likeButton, { color: item.postLikedByYou ? '#59B8F1' : 'black' }]}>Like</Text>
           </TouchableOpacity>
-          <TouchableOpacity style = {styles.likeComment} onPress={ () => navigateToPostScreen(true)}>
-            <Icon style = {styles.commentIcon} name="comment" type="fontisto" size={17} color="black" />
-            <Text style= { styles.commentButton }>Comment</Text>
+          <TouchableOpacity style={styles.likeComment} onPress={() => navigateToPostScreen(true)}>
+            <Icon style={styles.commentIcon} name="comment" type="fontisto" size={17} color="black" />
+            <Text style={styles.commentButton}>Comment</Text>
           </TouchableOpacity>
         </View>
       </View>
-    </TouchableOpacity>
+    </TouchableWithoutFeedback>
   );
 };
 

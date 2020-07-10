@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import {View, Text, Image, TextInput, TouchableOpacity, FlatList, StyleSheet} from 'react-native';
+import { View, Text, Image, TextInput, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
 import { Icon } from 'react-native-elements';
 import CommentComponent from '../components/CommentComponent';
 import { Context as PostContext } from '../context/PostDataContext';
@@ -23,39 +23,39 @@ const PostScreen = ({ navigation }) => {
     return (
       <View>
         <View style={styles.profileContainer}>
-        <Image
-          style={styles.userImage}
-          source={{ uri: userImage }}
-        />
-        <View style={styles.profile}>
-          <Text style={styles.userName}>{name}</Text>
-          <Text style = {styles.postTime}>{postTime}</Text>
+          <Image
+            style={styles.userImage}
+            source={{ uri: userImage }}
+          />
+          <View style={styles.profile}>
+            <Text style={styles.userName}>{name}</Text>
+            <Text style={styles.postTime}>{postTime}</Text>
+          </View>
         </View>
-      </View>
-      <View style={styles.postDetailsContainer}>
-        <Text style={styles.postHeading}>{postHeading}</Text>
-        <Text style={styles.postInfo}>{postInfo}</Text>
-        <View style={styles.actionButtons}>
-          <TouchableOpacity style={styles.likeContainer} onPress={() => navigation.navigate('LikesScreen', { likesDetails: postLikes })}>
-            {/* <Icon style = {styles.likeIcon} name="like1" type="antdesign" size={22} color="blue" /> */}
-            <Text>{likesCount} likes</Text>
-          </TouchableOpacity>
-          <Text>{commentCount} comments</Text>
+        <View style={styles.postDetailsContainer}>
+          <Text style={styles.postHeading}>{postHeading}</Text>
+          <Text style={styles.postInfo}>{postInfo}</Text>
+          <View style={styles.actionButtons}>
+            <TouchableOpacity style={styles.likeContainer} onPress={() => navigation.navigate('LikesScreen', { likesDetails: postLikes })}>
+              {/* <Icon style = {styles.likeIcon} name="like1" type="antdesign" size={22} color="blue" /> */}
+              <Text>{likesCount} likes</Text>
+            </TouchableOpacity>
+            <Text>{commentCount} comments</Text>
+          </View>
+          <View style={styles.userActions}>
+            <TouchableOpacity style={styles.likeAction} onPress={() => addLike(id)}>
+              <Icon style={styles.likeIcon} name="like1" type="antdesign" size={22} color={postLikedByYou ? '#59B8F1' : 'black'} />
+              <Text style={[styles.likeButton, { color: postLikedByYou ? '#59B8F1' : 'black' }]}>Like</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.likeComment} >
+              <Icon style={styles.commentIcon} name="comment" type="fontisto" size={17} color="black" />
+              <Text style={styles.commentButton}>Comment</Text>
+            </TouchableOpacity>
+          </View>
+          <View>
+            <Text style={styles.commentHeader}>Comments</Text>
+          </View>
         </View>
-        <View style = {styles.userActions}>
-          <TouchableOpacity style = {styles.likeAction} onPress={ ()=> addLike(id) }>
-            <Icon style = {styles.likeIcon} name="like1" type="antdesign" size={22} color= {postLikedByYou ? '#59B8F1' : 'black'} />
-            <Text style = { [styles.likeButton, {color: postLikedByYou ? '#59B8F1' : 'black'}] }>Like</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style = {styles.likeComment} >
-            <Icon style = {styles.commentIcon} name="comment" type="fontisto" size={17} color="black" />
-            <Text style= { styles.commentButton }>Comment</Text>
-          </TouchableOpacity>
-        </View>
-        <View>
-          <Text style={styles.commentHeader}>Comments</Text>
-        </View>
-      </View>
       </View>
     );
   };
@@ -112,7 +112,7 @@ const PostScreen = ({ navigation }) => {
 
 PostScreen.navigationOptions = ({ navigation }) => {
   return {
-      headerStyle: {
+    headerStyle: {
       backgroundColor: '#59B8F1',
     },
     headerTitleStyle: {
