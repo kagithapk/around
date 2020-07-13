@@ -33,7 +33,7 @@ module.exports = {
     },
     postHead: {
       type: 'string',
-      required: true
+      required: false,
     },
     postInfo: {
       type: 'string',

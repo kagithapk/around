@@ -3,25 +3,25 @@ import { StyleSheet, FlatList } from 'react-native';
 import 'react-native-vector-icons';
 import { NavigationEvents } from 'react-navigation';
 import { View } from 'react-native';
-import { Context as PostDataContext} from '../context/PostDataContext';
+import { Context as PostDataContext } from '../context/PostDataContext';
 import PostComponent from '../components/PostComponent';
 
-const HomeScreen = ({navigation}) => {
+const HomeScreen = ({ navigation }) => {
 
   const { state, fetchPostsData } = useContext(PostDataContext);
   return (
     <>
-      <NavigationEvents onWillFocus = { fetchPostsData }/>
-      <View style = {styles.homeScreen}>
-      <FlatList
-        data = { state.postDetails }
-        keyExtractor = {item => item.id.toString()}
-        renderItem = { ({item}) => {
-          return (
-            <PostComponent item={item} navigation={navigation} />
-          );
-        }}
-      />
+      <NavigationEvents onWillFocus={fetchPostsData} />
+      <View style={styles.homeScreen}>
+        <FlatList
+          data={state.postDetails}
+          keyExtractor={item => item.id.toString()}
+          renderItem={({ item }) => {
+            return (
+              <PostComponent item={item} navigation={navigation} />
+            );
+          }}
+        />
       </View>
     </>
   );

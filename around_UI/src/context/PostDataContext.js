@@ -12,21 +12,19 @@ const authReducer = (state, action) => {
         ...state,
         postDetails: action.payload,
       };
-    case 'createPostsData':
-      return INITIAL_STATE;
     case 'addLike':
-      const data =  state.postDetails.map( (post) => {
-          if (post.id === action.payload) {
-            console.log(post);
-            if (post.postLikedByYou){
-              return {...post, likesCount: post.likesCount - 1, postLikedByYou: false };
-            }
-            else {
-              return {...post, likesCount: post.likesCount + 1, postLikedByYou: true };
-            }
+      const data = state.postDetails.map((post) => {
+        if (post.id === action.payload) {
+          console.log(post);
+          if (post.postLikedByYou) {
+            return { ...post, likesCount: post.likesCount - 1, postLikedByYou: false };
           }
-          return post;
-        });
+          else {
+            return { ...post, likesCount: post.likesCount + 1, postLikedByYou: true };
+          }
+        }
+        return post;
+      });
       return {
         ...state,
         postDetails: data,
@@ -64,7 +62,7 @@ const authReducer = (state, action) => {
   }
 };
 
-const fetchPostsData = (dispatch) => async() => {
+const fetchPostsData = (dispatch) => async () => {
   try {
     const response = await aroundApi.get('post-details');
     dispatch({ type: 'fetchPostsData', payload: response.data });
@@ -73,25 +71,31 @@ const fetchPostsData = (dispatch) => async() => {
   }
 };
 
-const createPostsData = (dispatch) => async() => {
-  const response = await aroundApi.get('postdetails');
-  dispatch({ type: 'fetchPostsData', payload: response.data });
+const createPostsData = (dispatch) => async ({ postHead, postInfo }) => {
+  try {
+    await aroundApi.post('save-posts', { postHead, postInfo });
+    navigate('Home');
+  } catch (err) {
+    console.log('Error in creating a new post', err);
+  }
 };
 
-const addLike = (dispatch) => async(id) => {
+const addLike = (dispatch) => async (id) => {
   dispatch({ type: 'addLike', payload: id });
-  const response = await aroundApi.post('like-action', {postId: id});
+  const response = await aroundApi.post('like-action', { postId: id });
 };
 
-const addComment = (dispatch) => async({ userId, userName, userImage, postId, comment }) => {
+const addComment = (dispatch) => async ({ userId, userName, userImage, postId, comment }) => {
   const response = await aroundApi.post('add-comment', { postId, comment });
-  dispatch({ type: 'addComment', payload: {
-    userId,
-    userName,
-    userImage,
-    postId,
-    comment,
-  } });
+  dispatch({
+    type: 'addComment', payload: {
+      userId,
+      userName,
+      userImage,
+      postId,
+      comment,
+    },
+  });
 };
 
 export const { Context, Provider } = createDataContext(
@@ -102,5 +106,5 @@ export const { Context, Provider } = createDataContext(
     addLike,
     addComment,
   },
-  { postDetails: []},
+  { postDetails: [] },
 );
