@@ -17,7 +17,6 @@ const authReducer = (state, action) => {
     case 'addLike':
       const data =  state.postDetails.map( (post) => {
           if (post.id === action.payload) {
-            console.log(post);
             if (post.postLikedByYou){
               return {...post, likesCount: post.likesCount - 1, postLikedByYou: false };
             }

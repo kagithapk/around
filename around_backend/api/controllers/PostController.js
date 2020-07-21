@@ -7,6 +7,11 @@
 var moment = require('moment');
 module.exports = {
 
+  userProfileInfo: async(req, res) => {
+    console.log(req.body.info);
+    return res.send('called with get params');
+  },
+
   postDetails: async(req, res) => {
     let postDetails = [];
     const data = await sails.models['posts'].find();
@@ -43,6 +48,7 @@ module.exports = {
       // creating response structure
       postDetails.push({
         id: data[key].id,
+        userId:data[key].userId,
         name: data[key].userName,
         postHeading: data[key].postHead,
         postInfo: data[key].postInfo,
@@ -67,6 +73,8 @@ module.exports = {
     postDetails = postDetails.sort(
       (a, b) => moment(b.timeSort) - moment(a.timeSort)
     );
+
+    console.log(postDetails);
     return res.send(postDetails);
   },
 

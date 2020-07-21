@@ -17,6 +17,7 @@ import {
   GoogleSignin,
 } from '@react-native-community/google-signin';
 import { manifest } from './manifest';
+import ProfileScreen from './src/screens/ProfileScreen';
 
 const { WebClientID } = manifest;
 
@@ -31,6 +32,7 @@ const Home = createStackNavigator({
   HomeScreen,
   PostScreen,
   LikesScreen,
+  ProfileScreen,
 });
 
 Home.navigationOptions = () => {

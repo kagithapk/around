@@ -71,8 +71,23 @@ module.exports.routes = {
     action: 'commentAction',
   },
 
+  // for user profile info
+  'POST /profile-info': {
+    controller: 'PostController',
+    action: 'userProfileInfo',
+  },
 
+  // for sending friend-requests
+  'POST /send-friend-request' : {
+    controller: 'FriendsController',
+    action: 'sendFriendRequest',
+  },
 
+  // for fetching profile data
+  'POST /profile-data' : {
+    controller: 'ProfileController',
+    action: 'profileData',
+  }
 
   /***************************************************************************
 
@@ -99,12 +114,6 @@ module.exports.routes = {
 
 
   // To get user timeline
-
-  'POST /api/user-timeline': {
-    controller: 'UserTimelineController',
-    action: 'timelineDetails',
-  },
-
 
 
 
