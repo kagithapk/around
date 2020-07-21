@@ -7,7 +7,7 @@ import PostComponent from '../components/PostComponent';
 import aroundApi from '../api/route';
 
 const ProfileScreen = ({navigation}) => {
-  const searchUserId = navigation.getParam('searchUserId');
+  const searchUserId = navigation.getParam('id');
   console.log(searchUserId);
   const [details, setDetails] = useState({});
 
@@ -357,7 +357,7 @@ const ProfileScreen = ({navigation}) => {
           {
             details.posts.map((item)=> {
               return (
-               <PostComponent item={item} navigation={navigation} />
+               <PostComponent key={item.id} item={item} navigation={navigation} />
               );
             })
           }

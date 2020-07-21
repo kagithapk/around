@@ -48,7 +48,7 @@ module.exports = {
       // creating response structure
       postDetails.push({
         id: data[key].id,
-        userId:data[key].userId,
+        userId: data[key].userId,
         name: data[key].userName,
         postHeading: data[key].postHead,
         postInfo: data[key].postInfo,

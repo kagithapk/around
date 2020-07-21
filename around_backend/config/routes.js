@@ -71,11 +71,12 @@ module.exports.routes = {
     action: 'commentAction',
   },
 
-  // for user profile info
-  'POST /profile-info': {
-    controller: 'PostController',
-    action: 'userProfileInfo',
+  // for all users basic data
+  'GET /all-users-basic-data': {
+    controller: 'SearchController',
+    action: 'usersBasicDetails',
   },
+
 
   // for sending friend-requests
   'POST /send-friend-request' : {

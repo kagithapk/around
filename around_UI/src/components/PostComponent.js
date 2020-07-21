@@ -16,7 +16,7 @@ const PostComponent = ({ item, navigation }) => {
   return (
     <TouchableWithoutFeedback onPress={() => navigateToPostScreen(false)}>
       <View style = { styles.postCard }>
-        <TouchableOpacity onPress={() => navigation.navigate('ProfileScreen', {searchUserId: item.userId})}>
+        <TouchableOpacity onPress={() => navigation.navigate('ProfileScreen', {id: item.userId})}>
           <View style = { styles.userInfo}>
             <Image
               style={styles.userImage}
