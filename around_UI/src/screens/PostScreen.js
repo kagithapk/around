@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import {View, Text, Image, TextInput, TouchableOpacity, FlatList, StyleSheet} from 'react-native';
+import { View, Text, Image, TextInput, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
 import { Icon } from 'react-native-elements';
 import CommentComponent from '../components/CommentComponent';
 import { Context as PostContext } from '../context/PostDataContext';
@@ -13,6 +13,9 @@ const PostScreen = ({ navigation }) => {
   const { state, addComment, addLike } = useContext(PostContext);
   const userData = useContext(AuthContext);
   const user = userData.state;
+  const userId = user.id;
+  const userName = user.name;
+  const userPhoto = user.photo;
   const { id } = post;
   const selectedPost = state.postDetails.filter((postIteration) => postIteration.id === id);
   const { name, userImage, postHeading, postInfo, likesCount, commentCount, postComments, postLikes, postLikedByYou, postTime } = selectedPost[0];
@@ -29,7 +32,7 @@ const PostScreen = ({ navigation }) => {
           />
           <View style={styles.profile}>
             <Text style={styles.userName}>{name}</Text>
-            <Text style = {styles.postTime}>{postTime}</Text>
+            <Text style={styles.postTime}>{postTime}</Text>
           </View>
         </View>
         <View style={styles.postDetailsContainer}>
@@ -42,14 +45,14 @@ const PostScreen = ({ navigation }) => {
             </TouchableOpacity>
             <Text>{commentCount} comments</Text>
           </View>
-          <View style = {styles.userActions}>
-            <TouchableOpacity style = {styles.likeAction} onPress={ ()=> addLike(id) }>
-              <Icon style = {styles.likeIcon} name="like1" type="antdesign" size={22} color= {postLikedByYou ? '#59B8F1' : 'black'} />
-              <Text style = { [styles.likeButton, {color: postLikedByYou ? '#59B8F1' : 'black'}] }>Like</Text>
+          <View style={styles.userActions}>
+            <TouchableOpacity style={styles.likeAction} onPress={() => addLike(id)}>
+              <Icon style={styles.likeIcon} name="like1" type="antdesign" size={22} color={postLikedByYou ? '#59B8F1' : 'black'} />
+              <Text style={[styles.likeButton, { color: postLikedByYou ? '#59B8F1' : 'black' }]}>Like</Text>
             </TouchableOpacity>
-            <TouchableOpacity style = {styles.likeComment} >
-              <Icon style = {styles.commentIcon} name="comment" type="fontisto" size={17} color="black" />
-              <Text style= { styles.commentButton }>Comment</Text>
+            <TouchableOpacity style={styles.likeComment} >
+              <Icon style={styles.commentIcon} name="comment" type="fontisto" size={17} color="black" />
+              <Text style={styles.commentButton}>Comment</Text>
             </TouchableOpacity>
           </View>
           <View>
@@ -87,7 +90,7 @@ const PostScreen = ({ navigation }) => {
       <View style={styles.commentBar}>
         <Image
           style={styles.commentUserImage}
-          source={{ uri: userImage }}
+          source={{ uri: userPhoto }}
         />
         <TextInput
           value={comment}
@@ -99,7 +102,7 @@ const PostScreen = ({ navigation }) => {
         />
         <TouchableOpacity onPress={() => {
           if (comment) {
-            addComment({ userId: user.id, userName: user.name, userImage: user.photo, postId: id, comment });
+            addComment({ userId: userId, userName: userName, userImage: userPhoto, postId: id, comment });
             setComment('');
           }
         }}>
@@ -135,7 +138,7 @@ const PostScreen = ({ navigation }) => {
 
 PostScreen.navigationOptions = ({ navigation }) => {
   return {
-      headerStyle: {
+    headerStyle: {
       backgroundColor: '#59B8F1',
     },
     headerTitleStyle: {
