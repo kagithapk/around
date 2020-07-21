@@ -71,6 +71,12 @@ module.exports.routes = {
     action: 'commentAction',
   },
 
+  // for all users basic data
+  'GET /all-users-basic-data': {
+    controller: 'SearchController',
+    action: 'usersBasicDetails',
+  },
+
 
 
 

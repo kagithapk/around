@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
-import { StyleSheet, FlatList } from 'react-native';
+import { StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { Icon } from 'react-native-elements';
 import 'react-native-vector-icons';
 import { NavigationEvents } from 'react-navigation';
 import { View } from 'react-native';
@@ -27,14 +28,29 @@ const HomeScreen = ({navigation}) => {
   );
 };
 
-HomeScreen.navigationOptions = {
-  title: 'around',
-  headerStyle: {
-    backgroundColor: '#59B8F1',
-  },
-  headerTitleStyle: {
-    color: 'white',
-  },
+HomeScreen.navigationOptions = ({ navigation }) => {
+  return {
+    title: 'around',
+    headerStyle: {
+      backgroundColor: '#59B8F1',
+    },
+    headerTitleStyle: {
+      color: 'white',
+    },
+    headerRight: () => {
+      return (
+        <TouchableOpacity onPress={() => navigation.navigate('SearchScreen')}>
+          <Icon
+            iconStyle={styles.searchIcon}
+            name="search"
+            type="materialicons"
+            size={30}
+            color="white"
+          />
+        </TouchableOpacity>
+      );
+    },
+  };
 };
 
 
@@ -42,6 +58,9 @@ const styles = StyleSheet.create({
   homeScreen: {
     backgroundColor: 'white',
     flex: 1,
+  },
+  searchIcon: {
+    marginRight: 10,
   },
 });
 
